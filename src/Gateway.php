@@ -42,6 +42,12 @@ class Gateway extends RestGateway
         return $this->setParameter('secret', $value);
     }
 
+    public function parseResponse($data)
+    {
+        $request = $this->createRequest('\Omnipay\PayPalPlus\Message\RestPurchaseRequest', []);
+        return new \Omnipay\PayPalPlus\Message\RestAuthorizeResponse($request, (array)$data);
+    }
+
     public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPalPlus\Message\RestPurchaseRequest', $parameters);
